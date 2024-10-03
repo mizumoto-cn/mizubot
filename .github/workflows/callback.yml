@@ -3,7 +3,7 @@ name: Call Slack Webhook
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '35 9 * * *'
 
 jobs:
   make-call:
