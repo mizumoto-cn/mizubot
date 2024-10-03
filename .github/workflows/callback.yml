@@ -1,0 +1,32 @@
+name: Call Slack Webhook
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+
+jobs:
+  make-call:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.23.2
+      
+      - name: build
+        run: go build -o app main.go
+
+      - name: checkout mizubotprivate repo
+        uses: actions/checkout@v3
+        with:
+          repository: mizumoto-cn/mizubotprivate
+          path: ./mizubotprivate
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: run
+        run: |
+            # ./app -webhook-url ${{ secrets.SLACK_WEBHOOK_URL }} -tmp 
+            ls ./mizubotprivate
+    
