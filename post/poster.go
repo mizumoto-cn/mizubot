@@ -49,9 +49,9 @@ func (p *poster) Post(ctx context.Context) error {
 		"at_user_1":    p.User1Mail,
 		"to_channel_1": p.Channel1,
 		"to_mizumoto":  p.Content,
-		"at_user_2":    p.User2Mail,
-		"content":      p.Content,
-		"to_channel_2": p.Channel2,
+		// "at_user_2":    p.User2Mail,
+		"content": p.Content,
+		// "to_channel_2": p.Channel2,
 	}
 
 	// Convert payload to JSON
