@@ -24,6 +24,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 )
@@ -79,7 +80,11 @@ func (p *poster) Post(ctx context.Context) error {
 	// Check for non-200 status code
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("failed to post message, request: %s, status code: %d\n", string(jsonData), resp.StatusCode)
-		log.Println(resp.Body)
+		b, err := io.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		log.Println(b)
 		return fmt.Errorf("failed to post message, status code: %d", resp.StatusCode)
 	}
 
