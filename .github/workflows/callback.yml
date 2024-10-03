@@ -27,6 +27,5 @@ jobs:
 
       - name: run
         run: |
-            ./app -webhook-url ${{ secrets.SLACK_WEBHOOK_URL }} -tmp 
-            ls ./mizubotprivate
-    
+            ./app -webhook-url ${{ secrets.SLACK_WEBHOOK_URL }} -tmp ./mizubotprivate/template/tmp.txt \
+            -content ./mizubotprivate/template/content.txt -chan1 ${{ secrets.SLACK_CHANNEL_1 }} -user1mail ${{ secrets.SLACK_USER_MAIL_1 }}
