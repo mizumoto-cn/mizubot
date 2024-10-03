@@ -78,7 +78,7 @@ func (p *poster) Post(ctx context.Context) error {
 
 	// Check for non-200 status code
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("failed to post message, request: %v, status code: %d\n", req, resp.StatusCode)
+		log.Printf("failed to post message, request: %s, status code: %d\n", string(jsonData), resp.StatusCode)
 		log.Println(resp.Body)
 		return fmt.Errorf("failed to post message, status code: %d", resp.StatusCode)
 	}
