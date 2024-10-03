@@ -27,6 +27,6 @@ jobs:
 
       - name: run
         run: |
-            # ./app -webhook-url ${{ secrets.SLACK_WEBHOOK_URL }} -tmp 
+            ./app -webhook-url ${{ secrets.SLACK_WEBHOOK_URL }} -tmp 
             ls ./mizubotprivate
     
