@@ -47,7 +47,7 @@ func createReport(tLines []string, cLines []string, f Formatter) (string, error)
 
 func NewDailyReportFormatter() Formatter {
 	return func(tLines []string, cLines []string) (string, error) {
-		// from ${{0}} to ${{n}} in tLines where n is the length of cLines
+		// from ${{0}} to ${{n-1}} in tLines where n is the length of cLines
 		// replace ${{i}} with cLines[i]
 		// return the result
 		var result strings.Builder
