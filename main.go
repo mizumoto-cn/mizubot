@@ -20,6 +20,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/mizumoto-cn/mizubot/core"
@@ -66,10 +67,11 @@ func main() {
 				Required: true,
 			},
 			&cli.StringFlag{
-				Name:     "chan2",
-				Aliases:  []string{"c2"},
-				Usage:    "Channel 2",
-				Required: false,
+				Name:        "chan2",
+				Aliases:     []string{"c2"},
+				Usage:       "Channel 2",
+				Required:    false,
+				DefaultText: "",
 			},
 			&cli.StringFlag{
 				Name:     "user1mail",
@@ -78,10 +80,11 @@ func main() {
 				Required: true,
 			},
 			&cli.StringFlag{
-				Name:     "user2mail",
-				Aliases:  []string{"u2"},
-				Usage:    "User 2 Mail",
-				Required: false,
+				Name:        "user2mail",
+				Aliases:     []string{"u2"},
+				Usage:       "User 2 Mail",
+				Required:    false,
+				DefaultText: "",
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -89,6 +92,7 @@ func main() {
 			if err != nil {
 				return err
 			}
+			log.Println(content)
 			poster := post.NewPoster(
 				c.String("webhook-url"),
 				content,
