@@ -1,0 +1,33 @@
+name: After Process of Daily Report
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  after-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: checkout mizubotprivate repo
+        uses: actions/checkout@v3
+        with:
+          repository: mizumoto-cn/mizubotprivate
+          path: ./mizubotprivate
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - name: Move contents to archive folder with today's date
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          mkdir -p ./mizubotprivate/archive/$DATE
+          mv ./mizubotprivate/content.txt ./mizubotprivate/archive/$DATE/
+          touch ./mizubotprivate/content.txt
+      - name: Commit and push changes
+        run: |
+          cd ./mizubotprivate
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Move contents to archive folder with date $DATE and create new content.txt"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
