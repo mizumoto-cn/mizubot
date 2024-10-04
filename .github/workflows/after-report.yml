@@ -19,8 +19,8 @@ jobs:
         run: |
           DATE=$(date +%Y-%m-%d)
           mkdir -p ./mizubotprivate/archive/$DATE
-          mv ./mizubotprivate/content.txt ./mizubotprivate/archive/$DATE/
-          touch ./mizubotprivate/content.txt
+          mv ./mizubotprivate/template/content.txt ./mizubotprivate/archive/$DATE/
+          touch ./mizubotprivate/template/content.txt
       - name: Commit and push changes
         run: |
           cd ./mizubotprivate
