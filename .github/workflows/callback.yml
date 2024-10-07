@@ -3,13 +3,13 @@ name: Call Slack Webhook
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 9 * * *'
+    - cron: '35 9 * * 1-5'
 
 jobs:
   check-holiday-jp:
     runs-on: ubuntu-latest
     outputs:
-      is-holiday: ${{ steps.check-holiday.outputs.is-holiday }}
+      is-holiday: ${{ steps.check-holiday.outputs['is-holiday'] }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -24,12 +24,12 @@ jobs:
             console.log(today);
             const isHoliday = holidayJp.isHoliday(today);
             console.log(isHoliday);
-            return { isHoliday: isHoliday.toString() };
+            core.setOutput('is-holiday', isHoliday.toString());
 
   make-call:
     runs-on: ubuntu-latest
     needs: check-holiday-jp
-    if: needs.check-holiday-jp.outputs.is-holiday == 'false'
+    if: needs.check-holiday-jp.outputs.is-holiday == 'false' && github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v3
       - name: setup go
@@ -53,4 +53,5 @@ jobs:
             -content ./mizubotprivate/template/content.txt -chan1 ${{ secrets.SLACK_CHANNEL_1 }} -user1mail ${{ secrets.SLACK_USER_MAIL_1 }}
 
   after_report:
+    if: github.event_name == 'schedule'
     uses: ./.github/workflows/after-report.yml
