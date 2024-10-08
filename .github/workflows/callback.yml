@@ -55,3 +55,17 @@ jobs:
   after_report:
     if: github.event_name == 'schedule'
     uses: ./.github/workflows/after-report.yml
+
+  test_isHoliday:
+    runs-on: ubuntu-latest
+    needs: check-holiday-jp
+    if: needs.check-holiday-jp.outputs.is-holiday == 'false'
+    steps:
+      - name: echo
+        run: |
+          if [ "${{ needs.check-holiday-jp.outputs.is-holiday }}" == "false" ]; then
+            echo "Today is not holiday"
+          else
+            echo "Today is holiday"
+          fi
+
