@@ -8,8 +8,6 @@ on:
 jobs:
   check-holiday-jp:
     runs-on: ubuntu-latest
-    outputs:
-      is-holiday: ${{ steps.check-holiday.outputs['is-holiday'] }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -24,12 +22,14 @@ jobs:
             console.log(today);
             const isHoliday = holidayJp.isHoliday(today);
             console.log(isHoliday);
-            core.setOutput('is-holiday', isHoliday.toString());
+            if (isHoliday) {
+              process.exit(1);
+            }
 
   make-call:
     runs-on: ubuntu-latest
     needs: check-holiday-jp
-    if: needs.check-holiday-jp.outputs.is-holiday == 'false' && github.event_name == 'schedule'
+    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v3
       - name: setup go
