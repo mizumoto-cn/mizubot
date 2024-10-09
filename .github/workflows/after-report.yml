@@ -2,6 +2,9 @@ name: After Process of Daily Report
 
 on:
   workflow_call:
+    secrets:
+      ACCESS_TOKEN:
+        required: true
   workflow_dispatch:
 
 jobs:
