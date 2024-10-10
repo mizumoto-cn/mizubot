@@ -55,6 +55,8 @@ jobs:
   after_report:
     if: github.event_name == 'schedule'
     uses: ./.github/workflows/after-report.yml
+    secrets:
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
   test_isHoliday:
     runs-on: ubuntu-latest
