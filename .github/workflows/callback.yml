@@ -53,6 +53,7 @@ jobs:
             -content ./mizubotprivate/template/content.txt -chan1 ${{ secrets.SLACK_CHANNEL_1 }} -user1mail ${{ secrets.SLACK_USER_MAIL_1 }}
 
   after_report:
+    needs: [check-holiday-jp, make-call]
     if: github.event_name == 'schedule'
     uses: ./.github/workflows/after-report.yml
     secrets:
