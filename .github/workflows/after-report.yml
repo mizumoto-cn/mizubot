@@ -24,7 +24,7 @@ jobs:
           mkdir -p ./mizubotprivate/archive/$DATE
           mv ./mizubotprivate/template/content.txt ./mizubotprivate/archive/$DATE/
           touch ./mizubotprivate/template/content.txt
-          echo "\n\n\n\n\n" >> ./mizubotprivate/template/content.txt
+          for i in {1..5}; do echo ""; done >> ./mizubotprivate/template/content.txt
       - name: Commit and push changes
         run: |
           cd ./mizubotprivate
