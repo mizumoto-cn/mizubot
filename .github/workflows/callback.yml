@@ -2,8 +2,8 @@ name: Call Slack Webhook
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '35 9 * * 1-5'
+  schedule:
+    - cron: '35 9 * * 1-5'
 
 jobs:
   check-holiday-jp:
